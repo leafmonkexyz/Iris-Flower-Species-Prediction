@@ -1,0 +1,37 @@
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+# Load the Iris dataset
+from sklearn.datasets import load_iris
+iris = load_iris()
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(iris.data, iris.target, test_size=0.25, random_state=42)
+
+# Scale the data
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Create a logistic regression classifier
+clf = LogisticRegression(max_iter=1000)
+
+# Train the classifier
+clf.fit(X_train_scaled, y_train)
+
+# Make predictions on the testing set
+y_pred = clf.predict(X_test_scaled)
+
+# Scale the data
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# Calculate the accuracy
+accuracy = np.mean(y_pred == y_test)
+
+# Print the accuracy
+print("Accuracy:", accuracy)
